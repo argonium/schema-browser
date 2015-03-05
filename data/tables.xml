@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<tables>
+  <lastrun>1425321532801</lastrun>
+  <table id="ACTORS">
+    <col order="1" type="serial(10)" nullable="0" pk="1">actor_id</col>
+    <col order="2" type="varchar(64)" nullable="0" pk="0">actor_name</col>
+    <col order="3" type="varchar(64)" nullable="1" pk="0">role_type</col>
+    <col order="4" type="int4(10)" nullable="1" pk="0">member_id</col>
+    <col order="5" type="timestamp" nullable="1" pk="0">last_role</col>
+  </table>
+  <table id="CRATES">
+    <col order="1" type="varchar(55)" nullable="0" pk="1">crate_id</col>
+    <col order="2" type="varchar(255)" nullable="0" pk="0">crate_name</col>
+  </table>
+  <table id="USERS">
+    <col order="1" type="serial(10)" nullable="0" pk="1">user_id</col>
+    <col order="2" type="varchar(255)" nullable="0" pk="0">user_name</col>
+    <col order="3" type="varchar(255)" nullable="1" pk="0">user_full_name</col>
+    <col order="4" type="bpchar(1)" nullable="0" pk="0">user_on_visa</col>
+  </table>
+</tables>
