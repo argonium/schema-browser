@@ -637,6 +637,7 @@ public final class Schema implements ClipboardOwner
     tableTable.setAutoCreateRowSorter(true);
     tableTable.setModel(new TableTableModel(true));
     tableTable.setDefaultRenderer(Integer.class, new TableTableIntRenderer());
+    tableTable.getColumnModel().getColumn(0).setPreferredWidth(3);
     JScrollPane sp = new JScrollPane(tableTable);
     tableResultsPanel.add(sp, BorderLayout.CENTER);
   }
@@ -653,6 +654,7 @@ public final class Schema implements ClipboardOwner
     columnTable.setAutoCreateRowSorter(true);
     columnTable.setModel(new TableTableModel(false));
     columnTable.setDefaultRenderer(Integer.class, new TableTableIntRenderer());
+    columnTable.getColumnModel().getColumn(0).setPreferredWidth(3);
     JScrollPane sp = new JScrollPane(columnTable);
     columnResultsPanel.add(sp, BorderLayout.CENTER);
   }
