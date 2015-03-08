@@ -79,8 +79,8 @@ public final class Schema implements ClipboardOwner
   private JPanel tableResultsPanel = null;
   private JPanel columnResultsPanel = null;
   private JPanel resultsPanel = null;
-  private JList tableList = null;
-  private JList columnList = null;
+  private JList<String> tableList = null;
+  private JList<String> columnList = null;
   private JTextField tfTable = null;
   private JTable tableTable = null;
   private JTable columnTable = null;
@@ -281,7 +281,7 @@ public final class Schema implements ClipboardOwner
     tableSearchPanel.add(topPanel, BorderLayout.NORTH);
     
     // Create the list showing the search results
-    tableList = new JList();
+    tableList = new JList<String>();
     tableList.setModel(new TableListModel(true));
     tableList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     tableList.addListSelectionListener(new ListSelectionListener()
@@ -409,7 +409,7 @@ public final class Schema implements ClipboardOwner
    * @param list the list
    * @return the single selected index
    */
-  private int getSingleSelectedIndex(final JList list)
+  private int getSingleSelectedIndex(final JList<String> list)
   {
     final int[] sel = list.getSelectedIndices();
     if ((sel == null) || (sel.length == 0) || (sel.length > 1))
@@ -480,7 +480,7 @@ public final class Schema implements ClipboardOwner
    * @param prevIndex the previously-selected index
    * @param prevValue the previously-selected row
    */
-  private void refreshList(final JList list,
+  private void refreshList(final JList<String> list,
                            final int prevIndex,
                            final String prevValue)
   {
@@ -603,7 +603,7 @@ public final class Schema implements ClipboardOwner
     columnSearchPanel.add(topPanel, BorderLayout.NORTH);
     
     // Create the list showing the search results
-    columnList = new JList();
+    columnList = new JList<String>();
     columnList.setModel(new TableListModel(false));
     columnList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     columnList.addListSelectionListener(new ListSelectionListener()
