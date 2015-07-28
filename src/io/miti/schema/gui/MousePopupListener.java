@@ -64,11 +64,11 @@ public final class MousePopupListener extends MouseAdapter
     JMenuItem m3 = new JMenuItem(String.format("Copy all %ss", text));
     m3.addActionListener(new PopupAction(2));
     
-    JMenuItem m4 = new JMenuItem(String.format("Copy this %s and data", text));
+    JMenuItem m4 = new JMenuItem(String.format("Copy this %s and metadata", text));
     m4.addActionListener(new PopupAction(3));
-    JMenuItem m5 = new JMenuItem(String.format("Copy selected %ss and data", text));
+    JMenuItem m5 = new JMenuItem(String.format("Copy selected %ss and metadata", text));
     m5.addActionListener(new PopupAction(4));
-    JMenuItem m6 = new JMenuItem(String.format("Copy all %ss and data", text));
+    JMenuItem m6 = new JMenuItem(String.format("Copy all %ss and metadata", text));
     m6.addActionListener(new PopupAction(5));
     
     menu.add(m1);
