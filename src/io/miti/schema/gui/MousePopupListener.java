@@ -194,6 +194,7 @@ public final class MousePopupListener extends MouseAdapter
     @Override
     public void actionPerformed(final ActionEvent evt)
     {
+      final boolean isShift = ((evt.getModifiers() & ActionEvent.SHIFT_MASK) != 0);
       switch (mode)
       {
         case 0:
@@ -209,16 +210,16 @@ public final class MousePopupListener extends MouseAdapter
           break;
           
         case 3:
-          copyObjectAndData(evt);
+          copyObjectAndData(evt, isShift);
           break;
           
         case 4:
-          copySelectedObjectAndData(evt);
+          copySelectedObjectAndData(evt, isShift);
           break;
           
         case 5:
         default:
-          copyAllObjectsAndData(evt);
+          copyAllObjectsAndData(evt, isShift);
           break;
       }
     }
@@ -306,8 +307,9 @@ public final class MousePopupListener extends MouseAdapter
      * Copy the current object and its data.
      * 
      * @param evt the action event
+     * @param isShift whether the shift key was pressed on the menu
      */
-    private void copyObjectAndData(final ActionEvent evt)
+    private void copyObjectAndData(final ActionEvent evt, final boolean isShift)
     {
       final int currItem = tableList.locationToIndex(point);
       if (currItem >= 0)
@@ -317,11 +319,48 @@ public final class MousePopupListener extends MouseAdapter
             tableList.getModel()).getElementAt(currItem);
         StringBuilder sb = new StringBuilder(100);
         sb.append(item).append(EOLN);
-        sb.append(getItemDetails(item));
+        sb.append(isShift ? getItemDetailsMD(item) : getItemDetails(item));
         
         // Copy it to the clipboard
         Utility.copyToClipboard(sb.toString());
       }
+    }
+    
+    
+    /**
+     * Get the details for the specified item in Markdown format.
+     * 
+     * @param item the table or column name
+     * @return the details table in Markdown table format
+     */
+    private String getItemDetailsMD(final String item)
+    {
+      // Get the info for this table/column
+      List<TableInfo> tableInfo = showTables ? DBCache.getInstance().getTableInfo(item) :
+        DBCache.getInstance().getColumnInfo(item);
+      
+      // This will hold the output string
+      StringBuilder sb = new StringBuilder(100);
+      
+      // Iterate over the column names
+      sb.append("| ");
+      for (String title : getOutputTitles()) {
+        sb.append(title).append(" | ");
+      }
+      sb.append(EOLN);
+      
+      // Add the separator row
+      final int numCols = getOutputTitles().length;
+      sb.append("| ");
+      for (int i = 0; i < numCols; ++i) {
+        sb.append(" --- | ");
+      }
+      sb.append(EOLN);
+      
+      // TODO Add the data
+      ;
+      
+      return sb.toString();
     }
     
     
@@ -369,8 +408,9 @@ public final class MousePopupListener extends MouseAdapter
      * Copy the selected objects and data.
      * 
      * @param evt the action event
+     * @param isShift whether the shift key was pressed on the menu
      */
-    private void copySelectedObjectAndData(final ActionEvent evt)
+    private void copySelectedObjectAndData(final ActionEvent evt, final boolean isShift)
     {
       int[] sel = tableList.getSelectedIndices();
       final int len = sel.length;
@@ -381,7 +421,7 @@ public final class MousePopupListener extends MouseAdapter
         String item = (String) ((TableListModel)
             tableList.getModel()).getElementAt(sel[0]);
         sb.append(item).append(EOLN);
-        sb.append(getItemDetails(item));
+        sb.append(isShift ? getItemDetailsMD(item) : getItemDetails(item));
         
         for (int i = 1; i < len; ++i)
         {
@@ -389,7 +429,7 @@ public final class MousePopupListener extends MouseAdapter
           item = (String) ((TableListModel)
               tableList.getModel()).getElementAt(sel[i]);
           sb.append(item).append(EOLN);
-          sb.append(getItemDetails(item));
+          sb.append(isShift ? getItemDetailsMD(item) : getItemDetails(item));
         }
         
         // System.out.println(sb.toString());
@@ -402,8 +442,9 @@ public final class MousePopupListener extends MouseAdapter
      * Copy all objects and data.
      * 
      * @param evt the action event
+     * @param isShift whether the shift key was pressed on the menu
      */
-    private void copyAllObjectsAndData(final ActionEvent evt)
+    private void copyAllObjectsAndData(final ActionEvent evt, final boolean isShift)
     {
       final int len = ((TableListModel) tableList.getModel()).getSize();
       if (len > 0)
@@ -413,7 +454,7 @@ public final class MousePopupListener extends MouseAdapter
         String item = (String) ((TableListModel)
             tableList.getModel()).getElementAt(0);
         sb.append(item).append(EOLN);
-        sb.append(getItemDetails(item));
+        sb.append(isShift ? getItemDetailsMD(item) : getItemDetails(item));
         
         for (int i = 1; i < len; ++i)
         {
@@ -421,7 +462,7 @@ public final class MousePopupListener extends MouseAdapter
           item = (String) ((TableListModel)
               tableList.getModel()).getElementAt(i);
           sb.append(item).append(EOLN);
-          sb.append(getItemDetails(item));
+          sb.append(isShift ? getItemDetailsMD(item) : getItemDetails(item));
         }
         
         // System.out.println(sb.toString());
