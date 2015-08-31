@@ -351,14 +351,21 @@ public final class MousePopupListener extends MouseAdapter
       
       // Add the separator row
       final int numCols = getOutputTitles().length;
-      sb.append("| ");
+      sb.append("|");
       for (int i = 0; i < numCols; ++i) {
-        sb.append(" --- | ");
+        sb.append(" --- |");
       }
       sb.append(EOLN);
       
-      // TODO Add the data
-      ;
+      // Add the data
+      // {"order", (showTables ? "columnName" : "tableName"), "columnType", "isNullable", "isPK"};
+      for (TableInfo ti : tableInfo) {
+        sb.append("| ").append(ti.order).append(" | ")
+          .append(showTables ? ti.columnName : ti.tableName).append(" | ")
+          .append(ti.columnType).append(" | ")
+          .append(ti.isNullable).append(" | ")
+          .append(ti.isPK).append(" |").append(EOLN);
+      }
       
       return sb.toString();
     }
