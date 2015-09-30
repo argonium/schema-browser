@@ -28,6 +28,7 @@ public final class StripeRenderer extends DefaultListCellRenderer
     if (isSelected)
     {
       label.setBackground(SELECTED_COLOR);
+      label.setForeground(Color.WHITE);
     }
     else if (index % 2 == 0)
     {
