@@ -508,6 +508,7 @@ public final class Utility
   public static void makeMacCompatible()
   {
     // Set the system properties that a Mac uses
+    System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
     System.setProperty("apple.awt.brushMetalLook", "true");
     System.setProperty("apple.laf.useScreenMenuBar", "true");
     System.setProperty("apple.awt.showGrowBox", "true");
